@@ -15,6 +15,8 @@ export const verifyToken = (req, res, next) => {
         });
 
 		req.userId = decoded.userId;
+
+		// call the next function the nextauth
 		next();
 	} catch (error) {
 		console.log("Error in verifyToken ", error);
