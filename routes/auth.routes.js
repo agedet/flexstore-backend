@@ -15,8 +15,8 @@ const router = express.Router();
 // check if user is signed in when refers page
 router.get("/check-auth", verifyToken, checkAuthUser);
 
-router.post('/register', registerUser);
-router.get('/login', loginUser);
+router.post("/register", registerUser);
+router.get("/login", loginUser);
 router.post("/logout", logoutUser);
 
 router.post("/verify-email", verifyEmailUser);

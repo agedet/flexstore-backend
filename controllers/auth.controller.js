@@ -1,4 +1,9 @@
-import { sendPasswordResetEmail, sendResetSuccessEmail, sendWelcomeEmail } from '../lib/mailtrap/send.emails.js';
+import { 
+	sendPasswordResetEmail, 
+	sendResetSuccessEmail, 
+	sendVerificationEmail, 
+	sendWelcomeEmail 
+} from '../lib/mailtrap/send.emails.js';
 import Profile from '../models/user.model.js';
 import { generateTokenAndSetCookie }  from '../utils/generateTokenAndSetCookies.js';
 import bcryptjs from 'bcryptjs';
@@ -6,11 +11,11 @@ import crypto from 'crypto';
 
 // register user route
 export const registerUser = async (req, res) => {
-	const { email, password, fullName } = req.body;
+	const { fullName, email, password } = req.body;
 
 	try {
-		if (!email || !password || !fullName) {
-			throw new Error("All fields are required");
+		if (!fullName || !email || !password) {
+			console.log("All fields are required");
 		}
 
 		const userAlreadyExists = await Profile.findOne({ email });
@@ -24,9 +29,9 @@ export const registerUser = async (req, res) => {
 		const verificationToken = Math.floor(100000 + Math.random() * 900000).toString();
 
 		const user = new Profile({
+			fullName,
 			email,
 			password: hashedPassword,
-			fullName,
 			verificationToken,
 			verificationTokenExpiresAt: Date.now() + 24 * 60 * 60 * 1000, // 24 hours
 		});

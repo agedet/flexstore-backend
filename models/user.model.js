@@ -11,7 +11,7 @@ const ProfileSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		name: {
+		fullName: {
 			type: String,
 			required: true,
 		},
@@ -31,4 +31,5 @@ const ProfileSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-export const Profile = mongoose.model("Profile", ProfileSchema);
+const Profile = mongoose.model("Profile", ProfileSchema);
+export default Profile;
